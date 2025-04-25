@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MILANAIRRE - Premium Perfumes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+            color: #000;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        /* Announcement Bar */
+        .announcement-bar {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        .announcement-content {
+            display: inline-block;
+            animation: scrollText 20s linear infinite;
+            padding-right: 50px;
+        }
+        
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Header and Navigation */
+        .header {
+            position: relative;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .left-nav, .right-nav {
+            flex: 1;
+        }
+        
+        .search-icon {
+            font-size: 18px;
+        }
+        
+        .center-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-list {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+        }
+        
+        .nav-link {
+            color: #000;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link:hover {
+            color: #777;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            min-width: 160px;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1;
+            padding: 15px;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .logo {
+            width: 100px;
+            text-align: center;
+        }
+        
+        .logo img {
+            height: 36px;
+        }
+        
+        .right-nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        
+        .account-icon, .cart-icon {
+            font-size: 18px;
+        }
+        
+        /* Hero Section */
+        .hero-slider {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-content {
+            width: 50%;
+            padding-left: 10%;
+            color: white;
+        }
+        
+        .slide-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition-delay: 0.3s;
+        }
+        
+        .slide-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition-delay: 0.5s;
+        }
+        
+        .slide-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+            transition-delay: 0.7s;
+        }
+        
+        .slide-button:hover {
+            background-color: white;
+            color: #000;
+        }
+        
+        .slide.active .slide-title,
+        .slide.active .slide-description,
+        .slide.active .slide-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .slider-dot.active {
+            background-color: white;
+        }
+        
+        /* Featured Products Section */
+        .featured-products {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #777;
+            margin-bottom: 50px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .product-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            color: white;
+            text-align: left;
+        }
+        
+        .product-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-button {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: white;
+            color: #333;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .product-button:hover {
+            background-color: #f8d7da;
+            color: #000;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .about-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .about-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #f8d7da;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #333;
+        }
+        
+        .feature-text {
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        /* Collection Section */
+        .collection-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .collection-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .collection-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .collection-card:hover .collection-image {
+            transform: scale(1.1);
+        }
+        
+        .collection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .collection-card:hover .collection-overlay {
+            opacity: 1;
+        }
+        
+        .collection-name {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .collection-button {
+            padding: 10px 25px;
+            background-color: white;
+            color: #333;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .collection-button:hover {
+            background-color: #f8d7da;
+            color: #000;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 100px 0;
+            background-color: #f8d7da;
+            text-align: center;
+        }
+        
+        .newsletter-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .newsletter-description {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-button {
+            padding: 15px 30px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .newsletter-button:hover {
+            background-color: #000;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .testimonials-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .testimonials-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial {
+            min-width: 100%;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        
+        .testimonial-content {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-content::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 15px 15px 0;
+            border-style: solid;
+            border-color: #f9f9f9 transparent transparent;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .author-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        
+        .author-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .author-title {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .testimonials-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background-color: #f8d7da;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .footer-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: #f8d7da;
+            color: #333;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .footer-link {
+            font-size: 0.9rem;
+            color: #ddd;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #f8d7da;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        
+        .contact-icon {
+            font-size: 18px;
+        }
+        
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .payment-icon {
+            font-size: 24px;
+            color: #ddd;
+        }
+        
+        /* Login Modal */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .login-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-label {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .form-input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #f8d7da;
+            outline: none;
+        }
+        
+        .login-button {
+            padding: 12px;
+            background-color: #f8d7da;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .login-button:hover {
+            background-color: #f0b5b9;
+        }
+        
+        .login-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .signup-link {
+            color: #f8d7da;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .signup-link:hover {
+            color: #f0b5b9;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .about-container {
+                flex-direction: column;
+            }
+            
+            .collection-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+            
+            .nav-list {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 15px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+            
+            .nav-list.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            
+            .nav-link {
+                color: #333;
+            }
+            
+            .slide-content {
+                width: 80%;
+                padding-left: 5%;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .collection-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .newsletter-input {
+                border-radius: 5px;
+            }
+            
+            .newsletter-button {
+                border-radius: 5px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .slide-title {
+                font-size: 1.8rem;
+            }
+            
+            .slide-description {
+                font-size: 1rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            EXTRA 5% OFF ON ALL PREPAID ORDERS ~ FREE SHIPPING ~ UPTO 30% OFF SITEWIDE ~ EXTRA 5% OFF ON ALL PREPAID ORDERS ~ FREE SHIPPING ~ UPTO 30% OFF SITEWIDE ~ EXTRA 5% OFF ON ALL PREPAID ORDERS
+        </div>
+    </div>
+    
+    <!-- Header and Navigation -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="left-nav">
+                <a href="#" class="search-icon">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+            
+            <div class="center-nav">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link">PARFUM</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">EAU DE PARFUM <i class="fas fa-chevron-down" style="font-size: 10px;"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#" class="nav-link">FOR HIM</a>
+                            <a href="#" class="nav-link">FOR HER</a>
+                        </div>
+                    </li>
+                </ul>
+                
+                <div class="logo">
+                    <a href="#">
+                        <img src="/api/placeholder/100/36" alt="MILANAIRRE">
+                    </a>
+                </div>
+                
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link">GIFT SETS</a></li>
+                    <li><a href="#" class="nav-link">DEALS</a></li>
+                </ul>
+            </div>
+            
+            <div class="right-nav">
+                <a href="#" class="account-icon" id="login-trigger">
+                    <i class="far fa-user"></i>
+                </a>
+                <a href="#" class="cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Slider -->
+    <section class="hero-slider">
+        <div class="slide active">
+            <div class="slide-inner">
+                <div class="slide-image">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_1.png?raw=true" alt="MILANAIRRE Perfumes">
+                </div>
+                <div class="slide-content">
+                    <h1 class="slide-title">GIFT HER THE LUXURY SHE DESERVES</h1>
+                    <p class="slide-description">A Gift Set for Her</p>
+                    <a href="#" class="slide-button">SHOP NOW</a>
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-inner">
+                <div class="slide-image">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_2.png?raw=true" alt="MILANAIRRE Perfumes">
+                </div>
+                <div class="slide-content">
+                    <h1 class="slide-title">DISCOVER SIGNATURE SCENTS</h1>
+                    <p class="slide-description">Crafted for Elegance</p>
+                    <a href="#" class="slide-button">EXPLORE NOW</a>
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-inner">
+                <div class="slide-image">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_3.png?raw=true" alt="MILANAIRRE Perfumes">
+                </div>
+                <div class="slide-content">
+                    <h1 class="slide-title">ELEVATE YOUR PRESENCE</h1>
+                    <p class="slide-description">Premium Collection</p>
+                    <a href="#" class="slide-button">SHOP COLLECTION</a>
+                </div>
+            </div>
+        </div>
+        <div class="slider-nav">
+            <div class="slider-dot active"></div>
+            <div class="slider-dot"></div>
+            <div class="slider-dot"></div>
+        </div>
+    </section>
+    
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <p class="section-subtitle">Discover our most loved fragrances</p>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_1.png?raw=true" alt="Perfume 1" class="product-image">
+                    <div class="product-overlay">
+                        <h3 class="product-name">Milanairre Mystique</h3>
+                        <p class="product-price">₹4,999</p>
+                        <a href="#" class="product-button">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_2.png?raw=true" alt="Perfume 2" class="product-image">
+                    <div class="product-overlay">
+                        <h3 class="product-name">Milanairre Elegance</h3>
+                        <p class="product-price">₹5,999</p>
+                        <a href="#" class="product-button">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_3.png?raw=true" alt="Perfume 3" class="product-image">
+                    <div class="product-overlay">
+                        <h3 class="product-name">Milanairre Allure</h3>
+                        <p class="product-price">₹6,999</p>
+                        <a href="#" class="product-button">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container about-container">
+            <div class="about-image">
+                <img src="/api/placeholder/600/600" alt="About Milanairre">
+            </div>
+            <div class="about-content">
+                <h2 class="about-title">About MILANAIRRE</h2>
+                <p class="about-description">MILANAIRRE is a luxury perfume brand that celebrates the art of fragrance. We create unique, memorable scents using only the finest ingredients sourced from around the world. Each perfume is carefully crafted to evoke emotion and create lasting impressions.</p>
+                <div class="about-features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="feature-text">Premium Ingredients</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="feature-text">Artisanal Crafting</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="feature-text">Cruelty-Free</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe-asia"></i>
+                        </div>
+                        <div class="feature-text">Global Inspiration</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Collection Section -->
+    <section class="collection-section">
+        <div class="container">
+            <h2 class="section-title">Our Collections</h2>
+            <p class="section-subtitle">Explore our exclusive fragrance families</p>
+            <div class="collection-grid">
+                <div class="collection-card">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_1.png?raw=true" alt="Collection 1" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Floral Collection</h3>
+                        <a href="#" class="collection-button">View Collection</a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_2.png?raw=true" alt="Collection 2" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Oriental Collection</h3>
+                        <a href="#" class="collection-button">View Collection</a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_3.png?raw=true" alt="Collection 3" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Woody Collection</h3>
+                        <a href="#" class="collection-button">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2 class="newsletter-title">Join Our Newsletter</h2>
+            <p class="newsletter-description">Subscribe to our newsletter for exclusive offers, new product launches, and fragrance inspiration.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            <p class="section-subtitle">What our customers are saying about us</p>
+            <div class="testimonials-container">
+                <div class="testimonials-track">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"MILANAIRRE fragrances are simply amazing. The scent lasts all day and I always get compliments when I wear them. My signature fragrance now!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="/api/placeholder/70/70" alt="Customer" class="author-image">
+                            <div class="author-name">Priya Sharma</div>
+                            <div class="author-title">Loyal Customer</div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"The attention to detail in their packaging and the quality of their fragrances is unmatched. Worth every penny for the luxury experience."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="/api/placeholder/70/70" alt="Customer" class="author-image">
+                            <div class="author-name">Rahul Patel</div>
+                            <div class="author-title">Fashion Blogger</div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"I bought MILANAIRRE as a gift for my wife and she absolutely loves it. The customer service was exceptional and delivery was prompt."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="/api/placeholder/70/70" alt="Customer" class="author-image">
+                            <div class="author-name">Amit Verma</div>
+                            <div class="author-title">Happy Customer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonials-dots">
+                    <div class="testimonial-dot active"></div>
+                    <div class="testimonial-dot"></div>
+                    <div class="testimonial-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <div class="footer-logo">MILANAIRRE</div>
+                    <p class="footer-description">Luxury perfumes crafted with passion and precision. Experience the art of fragrance with MILANAIRRE.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Home</a></li>
+                        <li><a href="#" class="footer-link">Shop</a></li>
+                        <li><a href="#" class="footer-link">Collections</a></li>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Customer Care</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Shipping & Returns</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer-link">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <span>123 Perfume Street, Mumbai, India</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>+91 9876543210</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>info@milanairre.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <span>Mon - Fri: 10AM - 7PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">© 2025 MILANAIRRE. All Rights Reserved.</div>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa payment-icon"></i>
+                    <i class="fab fa-cc-mastercard payment-icon"></i>
+                    <i class="fab fa-cc-amex payment-icon"></i>
+                    <i class="fab fa-cc-paypal payment-icon"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-container">
+            <button class="close-button" id="close-login">&times;</button>
+            <h2 class="login-title">Login to Your Account</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="Your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+            </form>
+            <div class="login-footer">
+                Don't have an account? <a href="#" class="signup-link">Sign Up</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const navList = document.querySelector('.nav-list');
+        
+        mobileNavToggle.addEventListener('click', function() {
+            navList.classList.toggle('active');
+        });
+        
+        // Hero Slider
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        // Initialize slider
+        showSlide(0);
+        
+        // Auto slide
+        let slideInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 5000);
+        
+        // Pause slider on hover
+        const sliderContainer = document.querySelector('.hero-slider');
+        sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        sliderContainer.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+        });
+        
+        // Slider navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+        
+        // Testimonials Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        const track = document.querySelector('.testimonials-track');
+        let currentTestimonial = 0;
+        
+        function showTestimonial(index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            testimonialDots.forEach(dot => dot.classList.remove('active'));
+            testimonialDots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+        
+        // Initialize testimonials
+        showTestimonial(0);
+        
+        // Auto slide testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 4000);
+        
+        // Testimonial navigation
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showTestimonial(index);
+            });
+        });
+        
+        // Login Modal
+        const loginTrigger = document.getElementById('login-trigger');
+        const loginModal = document.getElementById('login-modal');
+        const closeLogin = document.getElementById('close-login');
+        
+        loginTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+        
+        closeLogin.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

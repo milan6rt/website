@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MILANAIRE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Top Scroller */
+        .top-scroller {
+            background-color: #000;
+            color: #fff;
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .scroller-content {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll 20s linear infinite;
+        }
+        
+        .scroller-item {
+            padding: 0 20px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Header and Navigation */
+        .header-container {
+            position: absolute;
+            top: 40px; /* After top scroller */
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: 15px 50px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        /* Logo */
+        .logo-container {
+            text-align: center;
+            flex: 1;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .logo span {
+            font-size: 20px;
+            vertical-align: super;
+        }
+
+        /* Icons */
+        .icons-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .icon {
+            color: white;
+            font-size: 20px;
+            margin-left: 25px;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 300px;
+            border-bottom: 1px solid white;
+            padding-bottom: 5px;
+        }
+
+        .search-icon {
+            color: white;
+            margin-right: 10px;
+            font-size: 18px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            width: 100%;
+            font-size: 16px;
+            padding: 5px 0;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: absolute;
+            top: 120px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 15px 30px;
+            border-radius: 50px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 0;
+            transition: color 0.3s;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Hero Banner - Fullscreen */
+        .hero-banner {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+        }
+
+        .hero-text {
+            padding-left: 10%;
+            max-width: 50%;
+        }
+
+        .hero-new-launch {
+            background-color: white;
+            color: black;
+            display: inline-block;
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            color: white;
+            font-size: 64px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            font-family: 'Times New Roman', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 40px;
+            font-family: 'Times New Roman', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-button {
+            background-color: #f8c066;
+            color: black;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Slider Navigation */
+        .slider-prev, .slider-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,0.3);
+            transition: background-color 0.3s;
+        }
+
+        .slider-prev {
+            left: 30px;
+        }
+
+        .slider-next {
+            right: 30px;
+        }
+
+        .slider-prev:hover, .slider-next:hover {
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        /* Dots navigation */
+        .dots-container {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 992px) {
+            .header-container, .nav-container {
+                padding: 15px 20px;
+            }
+            
+            .search-container {
+                padding: 0 20px;
+            }
+            
+            .hero-text {
+                padding: 50px 30px;
+                max-width: 70%;
+            }
+            
+            .hero-title {
+                font-size: 44px;
+            }
+            
+            .hero-subtitle {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .logo-container {
+                text-align: left;
+            }
+            
+            .nav-list {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 10px 20px;
+            }
+            
+            .hero-text {
+                max-width: 80%;
+                padding-left: 5%;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .hero-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Scroller Section -->
+    <div class="top-scroller">
+        <div class="scroller-content">
+            <div class="scroller-item">Free shipping on orders over $50</div>
+            <div class="scroller-item">Use code WELCOME10 for 10% off your first order</div>
+            <div class="scroller-item">New products now available</div>
+            <div class="scroller-item">Follow us on social media for exclusive offers</div>
+            <div class="scroller-item">Free shipping on orders over $50</div>
+            <div class="scroller-item">Use code WELCOME10 for 10% off your first order</div>
+            <div class="scroller-item">New products now available</div>
+            <div class="scroller-item">Follow us on social media for exclusive offers</div>
+        </div>
+    </div>
+
+    <!-- Header with Logo and Icons -->
+    <div class="header-container">
+        <div class="header">
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search for Sho" id="searchInput">
+                </div>
+            </div>
+            
+            <div class="logo-container">
+                <a href="#" class="logo">MILANAIRE<span>®</span></a>
+            </div>
+            
+            <div class="icons-container">
+                <i class="fas fa-user icon"></i>
+                <i class="fas fa-shopping-bag icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-container">
+        <nav class="navigation">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">For Him</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">For Her</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Unisex</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Bestsellers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">New Arrivals</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Banner Section - Fullscreen -->
+    <div class="hero-banner">
+        <!-- Slide 1 -->
+        <div class="hero-slide active" style="background-image: url('https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_1.png?raw=true');">
+            <div class="hero-overlay">
+                <div class="hero-text">
+                    <div class="hero-new-launch">New Launch</div>
+                    <h1 class="hero-title">Smell Like A Snack</h1>
+                    <h2 class="hero-subtitle">with our Gourmet Collection</h2>
+                    <a href="#" class="hero-button">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="hero-slide" style="background-image: url('https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_2.png?raw=true');">
+            <div class="hero-overlay">
+                <div class="hero-text">
+                    <div class="hero-new-launch">New Launch</div>
+                    <h1 class="hero-title">Elegant Fragrances</h1>
+                    <h2 class="hero-subtitle">for every occasion</h2>
+                    <a href="#" class="hero-button">Explore Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="hero-slide" style="background-image: url('https://github.com/milan6rt/website/blob/50aa501d4c17c2d6f622c1cd4acee86dbe881547/Product_3.png?raw=true');">
+            <div class="hero-overlay">
+                <div class="hero-text">
+                    <div class="hero-new-launch">New Launch</div>
+                    <h1 class="hero-title">Luxury Scents</h1>
+                    <h2 class="hero-subtitle">that last all day</h2>
+                    <a href="#" class="hero-button">Discover Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slider Navigation -->
+        <div class="slider-prev"><i class="fas fa-chevron-left"></i></div>
+        <div class="slider-next"><i class="fas fa-chevron-right"></i></div>
+        
+        <!-- Dots Navigation -->
+        <div class="dots-container">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        // Animated Search Bar
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            
+            // Animation for placeholder text
+            let placeholderText = "Search for Sho";
+            let fullText = "Search for Shop";
+            let currentIndex = placeholderText.length;
+            let direction = 1; // 1 for typing, -1 for deleting
+            
+            setInterval(() => {
+                if (document.activeElement !== searchInput) {
+                    if (direction === 1) {
+                        if (currentIndex < fullText.length) {
+                            currentIndex++;
+                        } else {
+                            setTimeout(() => {
+                                direction = -1;
+                            }, 1500); // Pause before deleting
+                        }
+                    } else {
+                        if (currentIndex > placeholderText.length) {
+                            currentIndex--;
+                        } else {
+                            setTimeout(() => {
+                                direction = 1;
+                            }, 500); // Pause before typing again
+                        }
+                    }
+                    
+                    searchInput.placeholder = fullText.substring(0, currentIndex);
+                }
+            }, 150);
+            
+            // Hero Banner Slider
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.slider-prev');
+            const nextBtn = document.querySelector('.slider-next');
+            let currentSlide = 0;
+            let slideInterval;
+            
+            function goToSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = index;
+                
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            function nextSlide() {
+                goToSlide((currentSlide + 1) % slides.length);
+            }
+            
+            function prevSlide() {
+                goToSlide((currentSlide - 1 + slides.length) % slides.length);
+            }
+            
+            // Start automatic slideshow
+            function startSlideshow() {
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+            
+            // Stop slideshow on interaction
+            function stopSlideshow() {
+                clearInterval(slideInterval);
+            }
+            
+            // Initialize slideshow
+            startSlideshow();
+            
+            // Add event listeners
+            prevBtn.addEventListener('click', () => {
+                stopSlideshow();
+                prevSlide();
+                startSlideshow();
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                stopSlideshow();
+                nextSlide();
+                startSlideshow();
+            });
+            
+            // Click on dots to change slide
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    stopSlideshow();
+                    goToSlide(index);
+                    startSlideshow();
+                });
+            });
+            
+            // Pause slideshow when hovering over slides
+            document.querySelector('.hero-banner').addEventListener('mouseenter', stopSlideshow);
+            document.querySelector('.hero-banner').addEventListener('mouseleave', startSlideshow);
+        });
+    </script>
+</body>
+</html>
